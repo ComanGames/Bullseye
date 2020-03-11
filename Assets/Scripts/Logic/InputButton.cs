@@ -1,5 +1,6 @@
 ﻿using System;
 using Settings;
+using TMPro;
 using UnityEngine;
 
 namespace Logic{
@@ -8,7 +9,7 @@ namespace Logic{
 
         [SerializeField] private LayerMask _hitMask;
         [SerializeField] private Material _colorMat;
-        [SerializeField] private TextMesh _textMesh;
+        [SerializeField] private TextMeshPro _textMesh;
 
         public event Action OnPushed;
 

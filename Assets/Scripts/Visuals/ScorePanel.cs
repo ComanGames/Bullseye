@@ -1,11 +1,12 @@
 ﻿using System.Collections;
 using System.Text;
+using TMPro;
 using UnityEngine;
 
 namespace Visuals{
     public class ScorePanel : MonoBehaviour{
 
-        public TextMesh Text;
+        public TextMeshPro Text;
         public float ScoreTimeot = .3f;
         public float ButtonTimeout = .3f;
 
