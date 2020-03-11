@@ -19,19 +19,38 @@ public class AimingSettings{
     public class AimZone{
         public float Chance;
         public float Distance = 1f;
+        public int Score = 10;
+
         public Color Color;
 
         private float _realChance=-1f;
-
-        public void Init(float totalChances){
-            if(totalChances<=0)
-                throw new ArgumentException("Total chances could not be less then 0");
-            _realChance = Chance / totalChances;
+        private float _realsDistance=-1f;
+        private bool _wasInit = false;
+        public float StartDistance{
+            get{
+                CheckInit();
+                return _realsDistance;
+            }
         }
-        public float GetChance(){
-            if (_realChance == -1)
+        public float RealChance {
+            get {
+                CheckInit();
+                return _realChance;
+            }
+        }
+
+        public void Init(float totalChance, float totalDistance){
+            _wasInit = true;
+            if(totalChance<=0f)
+                throw new ArgumentException("Total chances could not be less then 0");
+            _realChance = Chance / totalChance;
+
+        }
+
+
+        private void CheckInit(){
+            if (!_wasInit)
                 throw new Exception("Didn't initialize properly AimZone");
-            return _realChance;
         }
     }
 }
