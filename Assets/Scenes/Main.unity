@@ -465,7 +465,27 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _settings:
     aim:
-      Zones: []
+      Zones:
+      - Chance: 5
+        Distance: 0
+        Score: 100
+        Color: {r: 1, g: 0, b: 0, a: 1}
+      - Chance: 6.5
+        Distance: 0
+        Score: 50
+        Color: {r: 1, g: 0.913718, b: 0, a: 1}
+      - Chance: 7.5
+        Distance: 0
+        Score: 20
+        Color: {r: 0.23492157, g: 1, b: 0, a: 1}
+      - Chance: 8.5
+        Distance: 0
+        Score: 0
+        Color: {r: 1, g: 1, b: 1, a: 1}
+      - Chance: 0
+        Distance: 0
+        Score: 0
+        Color: {r: 0, g: 0, b: 0, a: 0}
       HalfTime: 3
       InidictorCurve:
         serializedVersion: 2
@@ -495,9 +515,9 @@ MonoBehaviour:
       ButtonStateTransitionTime: 0.5
       InitButState:
         Color: {r: 0, g: 0, b: 0, a: 0}
-        Text: 
+        Text: Start
       AimButState:
-        Color: {r: 0, g: 0, b: 0, a: 0}
+        Color: {r: 0.8867924, g: 0.28862584, b: 0.28862584, a: 1}
         Text: 
       FinalButState:
         Color: {r: 0, g: 0, b: 0, a: 0}
@@ -1391,7 +1411,7 @@ GameObject:
   - component: {fileID: 1358344647554679047}
   - component: {fileID: 368333050939032719}
   - component: {fileID: 368333050939032718}
-  m_Layer: 8
+  m_Layer: 0
   m_Name: Button
   m_TagString: Untagged
   m_Icon: {fileID: 0}

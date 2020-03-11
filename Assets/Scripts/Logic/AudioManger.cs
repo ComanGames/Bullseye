@@ -1,4 +1,5 @@
 ﻿using Settings;
+using UnityEngine;
 
 namespace Logic{
     public class AudioManger{
@@ -18,6 +19,23 @@ namespace Logic{
         }
 
         public void PlaySound(Sounds sound){
+            AudioSource source = _settings._source;
+            switch (sound){
+                case Sounds.Click:
+                    source.clip = _settings._clickSound;
+                    break;
+                case Sounds.Bang:
+                    source.clip = _settings._arrowHitSound;
+                    break;
+                case Sounds.Congrats:
+                    source.clip = _settings._gameScoreSound;
+                    break;
+                case Sounds.Fly:
+                    source.clip = _settings._arrowFlySound;
+                    break;
+
+            }
+            source.Play();
 
         }
 
