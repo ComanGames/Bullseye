@@ -41,10 +41,10 @@ namespace Visuals{
                 f = (Time.time - startTime) / FlyTimeout;
                 var pos = trajectory(f);
                 var future = trajectory(f + 0.1f);
-                var rot = Quaternion.LookRotation(future-pos);
 
+                Vector3 direction = (future-pos).normalized;
                 Arrow.position = pos+_arrowInitPos;
-                Arrow.rotation = rot;
+                Arrow.rotation = Quaternion.LookRotation(direction, Vector3.up);
 
                 yield return null;
             }

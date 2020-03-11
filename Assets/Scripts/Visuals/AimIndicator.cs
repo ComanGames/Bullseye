@@ -32,7 +32,7 @@ namespace Visuals{
         }
 
         public void Reset(){
-            throw new NotImplementedException();
+
         }
     }
 }

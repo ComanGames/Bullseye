@@ -10,7 +10,6 @@ namespace Logic{
         [SerializeField] private GameSettings _settings;
         private GameState _gameState;
         private VisualSettings _visuals;
-        private AudioManger _audio;
 
 
         public void Start(){
@@ -21,10 +20,12 @@ namespace Logic{
         }
 
         private void AudioSubscriptions(){
+
+            AudioManger audio = new AudioManger(_settings.audio);
             _visuals = _settings.visual;
-            _visuals.MainButton.OnPushed += () => _audio.PlaySound(AudioManger.Sounds.Click);
-            _visuals.AimTarget.OnShooted += () => _audio.PlaySound(AudioManger.Sounds.Fly);
-            _visuals.AimTarget.OnHit += () => _audio.PlaySound(AudioManger.Sounds.Bang);
+            _visuals.MainButton.OnPushed += () => audio.PlaySound(AudioManger.Sounds.Click);
+            _visuals.AimTarget.OnShooted += () => audio.PlaySound(AudioManger.Sounds.Fly);
+            _visuals.AimTarget.OnHit += () => audio.PlaySound(AudioManger.Sounds.Bang);
         }
 
     

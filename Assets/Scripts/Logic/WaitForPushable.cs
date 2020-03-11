@@ -11,7 +11,7 @@ namespace Logic{
         public override bool keepWaiting{
             get {
                 if (_pushable.IsPushed()){
-                    Reset();
+                    _pushable.Reset();
                     return false;
                 }
                 return true;

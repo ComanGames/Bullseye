@@ -31,7 +31,7 @@ namespace Logic{
                         && hit.collider == _collider){
                         _isPushed = true;
                         if (OnPushed != null) 
-                            OnPushed();
+                            OnPushed.Invoke();
                     }
 
                 }
