@@ -10,7 +10,6 @@ public class GameSettings{
     public SoundSettings audio;
 
     public void Init(){
-
         aim.Init(visual.AimTarget.Radius); 
     }
 
@@ -94,9 +93,6 @@ public class VisualSettings{
     public ButtonVisuals AimButState;
     public ButtonVisuals FinalButState;
     public AimTargetVisual AimTarget;
-
-
-
  }
 
 public class AimTargetVisual{

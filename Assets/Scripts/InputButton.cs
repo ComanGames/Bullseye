@@ -8,6 +8,8 @@ public class InputButton:MonoBehaviour,IPushable{
     [SerializeField] private Material _colorMat;
     [SerializeField] private TextMesh _textMesh;
 
+    public event Action OnPushed;
+
     private BoxCollider _collider;
     private bool _isPushed;
 
@@ -23,8 +25,11 @@ public class InputButton:MonoBehaviour,IPushable{
 
             if (Physics.Raycast( ray,out hit, 100f,_hitMask)){
                 if (hit.collider != null
-                    && hit.collider == _collider)
+                    && hit.collider == _collider){
                     _isPushed = true;
+                    if (OnPushed != null) 
+                        OnPushed();
+                }
 
             }
         }

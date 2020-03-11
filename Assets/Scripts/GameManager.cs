@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using UnityEngine;
+using Sounds = AudioManger.Sounds;
 
 public class GameManager : MonoBehaviour{
 
@@ -17,8 +18,14 @@ public class GameManager : MonoBehaviour{
 
     public void Start(){
         _settings.Init();
+        AudioSubscriptions();
         _aimingLogic = new AimingLogic(_settings.aim,Time.time);
         StartCoroutine(LifeCycle());
+        
+    }
+
+    private void AudioSubscriptions(){
+        _mainButton.OnPushed += () => _audio.PlaySound(Sounds.Click);
     }
 
     public IEnumerator LifeCycle(){
@@ -59,7 +66,7 @@ public class AudioManger{
         _settings = settings;
     }
 
-    enum Sounds{
+    public enum Sounds{
         Click,
         Fly,
         Bang,

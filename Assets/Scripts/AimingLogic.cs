@@ -41,7 +41,9 @@ public class AimingLogic{
         float chances = GetAimPercentage(time);
         float chanceEval = _settings.InidictorCurve.Evaluate(Math.Abs(chances));
         int zoneIndex = GetCurrentZoneIndex(chanceEval);
-        var point = IndicatorPoint(chances, chanceEval);
+        var point = 1 - chances; //should be from 1to0 from0 to -1/
+                                 //JIC: IndicatorPoint(chances, chanceEval);
+
         Color color = _zones[zoneIndex].Color;
 
         return new AimState(point,color,zoneIndex);
