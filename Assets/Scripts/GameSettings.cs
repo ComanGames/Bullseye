@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using UnityEngine;
 
 [Serializable]
@@ -7,6 +8,12 @@ public class GameSettings{
     public AimingSettings aim;
     public VisualSettings visual;
     public SoundSettings audio;
+
+    private void Init(){
+
+        aim.Init(visual.AimTarget.Radius); 
+    }
+
 }
 
 [Serializable]
@@ -14,6 +21,21 @@ public class AimingSettings{
     public AimZone[] Zones;
     public float HalfTime;
     public AnimationCurve InidictorCurve;
+
+    public void Init(float radius){
+        //This one Could also be done by for.
+        //But my slogan is "shorter is better";
+
+        float prevDist = 0;
+
+        float totalChance = Zones 
+            .Select(x => x.Chance).Sum();
+
+        foreach (var zone in Zones){
+            zone.Init(totalChance,prevDist);
+            prevDist += radius*zone.Chance;
+        } 
+    }
 
 
     public class AimZone{
@@ -71,7 +93,20 @@ public class VisualSettings{
     public ButtonVisualState InitButState;
     public ButtonVisualState AimButState;
     public ButtonVisualState FinalButState;
+    public AimTargetVisual AimTarget;
 
+
+
+ }
+
+public class AimTargetVisual{
+
+    public Transform VisualSerfaceAngle;
+    public Transform VisualSurfaceCenter;
+    public Transform VisualSurfaceEnding;
+   public float Radius{
+        get { return Vector3.Distance(VisualSurfaceCenter.position, VisualSurfaceEnding.position); }
+    }
 
 }
 

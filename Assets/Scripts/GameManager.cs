@@ -15,7 +15,7 @@ public class GameManager : MonoBehaviour{
 
 
     public void Start(){
-        _aimingLogic = new AimingLogic(_settings.aim);
+        _aimingLogic = new AimingLogic(_settings.aim,Time.time);
         StartCoroutine(LifeCycle());
     }
 
@@ -30,7 +30,7 @@ public class GameManager : MonoBehaviour{
     }
 
     private void GoToNextState(){
-        if (_gameState == GameState.Shooting)
+        if (_gameState == GameState.Final)
             _gameState = GameState.Aiming;
         else
             _gameState++;

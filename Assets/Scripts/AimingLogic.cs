@@ -16,13 +16,12 @@ public class AimingLogic{
     public AimingLogic(AimingSettings settings,float time){
         _settings = settings;
         _zones = _settings.Zones;
-       Init(settings);
        _startTime = time;
     }
 
 
-    public Vector2 GetHitPoint(float time){
 
+    public Vector2 GetHitPoint(float time){
         //We look first for the zone index 
         AimState state = GetCurrentIimState(time);
         int i = state.ZoneIndex;
@@ -54,14 +53,12 @@ public class AimingLogic{
 
     private int GetCurrentZoneIndex(float chance){
         float totalChance = 0;
+        chance = 1 - chance;
         for (int i = 0; i < _zones.Length-1; i++){
             totalChance += _zones[i].PercentageChance;
-            if (totalChance >= chance)
+            if (chance <= totalChance)
                 return i;
         }
-    public void Start(float time){
-        _startTime = time;
-    }
 
         return _zones.Length - 2;
 
@@ -84,22 +81,6 @@ public class AimingLogic{
         return chances;
     }
 
-    private void Init(AimingSettings settings){
-        //This one Could also be done by for.
-        //But my slogan is "shorter is better";
-
-        float prevDist = 0;
-        var zones = _zones;
-
-        float totalChance = zones 
-            .Select(x => x.Chance).Sum();
-
-        foreach (var zone in zones){
-            zone.Init(totalChance,prevDist);
-            prevDist += zone.Distance;
-        }
-
-    }
 }
 
 public class AimState{

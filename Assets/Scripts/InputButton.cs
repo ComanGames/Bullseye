@@ -1,6 +1,8 @@
 ﻿using UnityEngine;
 
+[RequireComponent(typeof(BoxCollider))]
 public class InputButton:MonoBehaviour,IPushable{
+    private BoxCollider
     public bool IsPushed(){
         throw new System.NotImplementedException();
     }
