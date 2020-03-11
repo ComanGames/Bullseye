@@ -105,6 +105,7 @@ namespace Logic{
             _visuals.Indicator.enabled = true;
             while (!pushable.IsPushed()){
                 AimState state = aimLogic.GetCurrentAimState(Time.time);
+
                 _visuals.Indicator.UpdateState(state);
                 yield return null;
             }

@@ -39,7 +39,7 @@ namespace Logic{
             float chances = GetAimPercentage(time);
             float chanceEval = _settings.InidictorCurve.Evaluate(Math.Abs(chances));
             int zoneIndex = GetCurrentZoneIndex(chanceEval);
-            var point = 1 - chances; //should be from 1to0 from0 to -1/
+            var point = IndicatorPoint(chances,chanceEval); //should be from 1to0 from0 to -1/
             //JIC: IndicatorPoint(chances, chanceEval);
 
             Color color = _zones[zoneIndex].Color;
@@ -49,7 +49,7 @@ namespace Logic{
         }
 
         private static float IndicatorPoint(float chances, float chanceEval){
-            return chances>=0?chanceEval/2: (1+chanceEval*.5f)+.5f;
+            return (chanceEval*2) -2f;
         }
 
         private int GetCurrentZoneIndex(float chance){
@@ -73,13 +73,7 @@ namespace Logic{
             float hTime = _settings.HalfTime;
             float relativeTime = (time-_startTime) % (hTime * 2);
 
-            if (relativeTime < hTime)
-                //For the first half on the indicator from 0 to 0.5
-                chances = relativeTime / hTime;
-            else
-                //For the first half on the indicator from 0.5 to 1 
-                chances = (1f - ((relativeTime % hTime))/hTime) * -1;
-            return chances;
+            return relativeTime/hTime;
         }
 
 
