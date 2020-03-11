@@ -12,38 +12,48 @@ public class GameSettings{
 [Serializable]
 public class AimingSettings{
     public AimZone[] Zones;
-    public float AimingCycleTime;
-    public AnimationCurve InidictorSpeedCurve;
+    public float HalfTime;
+    public AnimationCurve InidictorCurve;
 
 
     public class AimZone{
+
         public float Chance;
         public float Distance = 1f;
         public int Score = 10;
 
         public Color Color;
 
-        private float _realChance=-1f;
-        private float _realsDistance=-1f;
+        private float _percentageChange=-1f;
+        private float _prevDistance=-1f;
         private bool _wasInit = false;
-        public float StartDistance{
+        public float MinDist{
             get{
                 CheckInit();
-                return _realsDistance;
+                return _prevDistance;
             }
         }
-        public float RealChance {
+        public float MaxDist{
+            get{
+                CheckInit();
+                return _prevDistance+Distance;
+            }
+        }
+        public float PercentageChance
+        {
             get {
                 CheckInit();
-                return _realChance;
+                return _percentageChange;
             }
         }
 
-        public void Init(float totalChance, float totalDistance){
+        public void Init(float totalChance, float prevDistance){
             _wasInit = true;
             if(totalChance<=0f)
                 throw new ArgumentException("Total chances could not be less then 0");
-            _realChance = Chance / totalChance;
+            _percentageChange = Chance / totalChance;
+
+            _prevDistance = prevDistance;
 
         }
 
