@@ -1,5 +1,5 @@
-﻿internal enum GameState{
+﻿public enum GameState{
     Init,
     Aiming,
-    Shooting,
+    Final,
 }

@@ -1,6 +1,5 @@
 ﻿using System.Collections;
 using UnityEngine;
-using UnityEngine.Experimental.XR;
 
 public class GameManager : MonoBehaviour{
 
@@ -9,11 +8,14 @@ public class GameManager : MonoBehaviour{
     [SerializeField] private AimIndicator _aimIndicatr;
 
 
-    public GameSettings Settings;
+    [SerializeField]
+    private GameSettings _settings;
     private GameState _gameState;
+    private AimingLogic _aimingLogic;
 
 
     public void Start(){
+        _aimingLogic = new AimingLogic(_settings.aim);
         StartCoroutine(LifeCycle());
     }
 
