@@ -51,7 +51,7 @@ namespace Logic{
                 yield return StartCoroutine(AnimPhase(logic,time));
             
                 //Score
-                yield return StartCoroutine(ShowScorePhase(logic,time,button));
+                yield return StartCoroutine(ShowScorePhase(logic,time));
 
                 //Reset 
                 Reset(); 
@@ -62,13 +62,12 @@ namespace Logic{
             }
         }
 
-        private IEnumerator ShowScorePhase(AimLogic logic, float time, IPushable button){
+        private IEnumerator ShowScorePhase(AimLogic logic, float time){
 
             _visuals.Camera.GoToScorePoint();
             AimState state= logic.GetCurrentAimState(time);
-            _visuals.Scores.ShowScore(state.Score);
+            yield return StartCoroutine(_visuals.Scores.ShowScore(state.Score));
             _visuals.MainButton.enabled = true;
-            yield return new WaitForPushable(button);
         }
 
 

@@ -7,11 +7,11 @@ namespace Visuals{
         [Header("Params")] 
         public float FlyTimeout;
         public float HitDelay=0.2f;
+        public float Radius;
 
         [Header("Refs")]
         public Transform Arrow;
         public Transform Surface;
-        public Transform Border;
 
         public event Action OnShooted;
         public event Action OnHit;
@@ -53,10 +53,6 @@ namespace Visuals{
             yield return new WaitForSeconds(HitDelay);
 
 
-        }
-
-        public float Radius{
-            get { return Vector3.Distance(Surface.position,Border.position); }
         }
 
         public Vector3 RelativePoint(Vector3 init){

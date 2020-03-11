@@ -38,7 +38,7 @@ namespace Logic{
 
             float chances = GetAimPercentage(time);
             float chanceEval = _settings.InidictorCurve.Evaluate(Math.Abs(chances));
-            int zoneIndex = GetCurrentZoneIndex(chanceEval);
+            int zoneIndex = GetCurrentZoneIndex(chances);
             var point = IndicatorPoint(chances,chanceEval); //should be from 1to0 from0 to -1/
             //JIC: IndicatorPoint(chances, chanceEval);
 
@@ -54,14 +54,18 @@ namespace Logic{
 
         private int GetCurrentZoneIndex(float chance){
             float totalChance = 0;
-            chance = 1 - chance;
+            if(chance<1)
+                chance = 1 - chance;
+            else
+                chance =  (chance-1);
+
             for (int i = 0; i < _zones.Length-1; i++){
                 totalChance += _zones[i].PercentageChance;
                 if (chance <= totalChance)
                     return i;
             }
 
-            return _zones.Length - 2;
+            return _zones.Length - 1;
 
         }
 

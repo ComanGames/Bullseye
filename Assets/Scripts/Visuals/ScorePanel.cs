@@ -10,15 +10,24 @@ namespace Visuals{
         public float ScoreTimeot = .3f;
         public float ButtonTimeout = .3f;
 
-        public IEnumerator ShowScore(int number){
 
+        public IEnumerator ShowScore(int number){
+            Show();
             StringBuilder sb = new StringBuilder();
             sb.AppendLine("Your Score");
             Text.text = sb.ToString();
-            yield return new WaitForSeconds(ScoreTimeot);
+//            yield return new WaitForSeconds(ScoreTimeot);
             sb.AppendLine(number.ToString());
             Text.text = sb.ToString();
             yield return new WaitForSeconds(ButtonTimeout);
+            Hide();
+        }
+
+        public void Hide(){
+            Text.gameObject.SetActive(false);
+        }
+        public void Show(){
+            Text.gameObject.SetActive(true);
         }
         public void Reset(){
             Text.text = "";
