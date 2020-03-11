@@ -6,8 +6,6 @@ using UnityEngine;
 namespace Logic{
     public class GameManager : MonoBehaviour{
 
-        //Mono Refs 
-
 
         [SerializeField] private GameSettings _settings;
         private GameState _gameState;

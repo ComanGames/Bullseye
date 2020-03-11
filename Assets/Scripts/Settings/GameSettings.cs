@@ -3,7 +3,6 @@
 namespace Settings{
     [Serializable]
     public class GameSettings{
-        public float TimeOut;
         public AimingSettings aim;
         public VisualSettings visual;
         public SoundSettings audio;
