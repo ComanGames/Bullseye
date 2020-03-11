@@ -1,17 +1,47 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
 [RequireComponent(typeof(BoxCollider))]
 public class InputButton:MonoBehaviour,IPushable{
-    private BoxCollider
+
+    [SerializeField] private LayerMask _hitMask;
+    [SerializeField] private Material _colorMat;
+    [SerializeField] private TextMesh _textMesh;
+
+    private BoxCollider _collider;
+    private bool _isPushed;
+
+    public void Awake(){
+        _collider = GetComponent<BoxCollider>();
+        _isPushed = false;
+    }
+
+    private void Update(){
+        if (Input.GetMouseButtonDown(0)){
+            RaycastHit hit;  
+            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+
+            if (Physics.Raycast( ray,out hit, 100f,_hitMask)){
+                if (hit.collider != null
+                    && hit.collider == _collider)
+                    _isPushed = true;
+
+            }
+        }
+    }
+
     public bool IsPushed(){
-        throw new System.NotImplementedException();
+        return _isPushed;
     }
 
     public void Reset(){
-        throw new System.NotImplementedException();
+        _isPushed = false;
     }
 
-    public void ChangeSate(GameState state){
-        throw new System.NotImplementedException();
+    public void ChangeState(ButtonVisuals state){
+
+        _textMesh.text = state.Text;
+        _colorMat.color = state.Color;
+
     }
 }

@@ -12,9 +12,11 @@ public class GameManager : MonoBehaviour{
     private GameSettings _settings;
     private GameState _gameState;
     private AimingLogic _aimingLogic;
+    private AudioManger _audio;
 
 
     public void Start(){
+        _settings.Init();
         _aimingLogic = new AimingLogic(_settings.aim,Time.time);
         StartCoroutine(LifeCycle());
     }
@@ -40,7 +42,32 @@ public class GameManager : MonoBehaviour{
     }
 
     private void ChangeState(GameState state){
-        _mainButton.ChangeSate(state);
+
+        _mainButton.ChangeState(_settings.visual.AimButState);
+        
 
     }
+}
+
+
+public class AudioManger{
+
+
+    private SoundSettings _settings;
+
+    public AudioManger(SoundSettings settings){
+        _settings = settings;
+    }
+
+    enum Sounds{
+        Click,
+        Fly,
+        Bang,
+        Congrats,
+    }
+
+    public void PlaySound(Sounds sound){
+
+    }
+
 }

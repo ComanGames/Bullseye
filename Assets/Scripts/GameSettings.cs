@@ -9,7 +9,7 @@ public class GameSettings{
     public VisualSettings visual;
     public SoundSettings audio;
 
-    private void Init(){
+    public void Init(){
 
         aim.Init(visual.AimTarget.Radius); 
     }
@@ -90,9 +90,9 @@ public class AimingSettings{
 [Serializable]
 public class VisualSettings{
     public float ButtonStateTransitionTime = 0.5f;
-    public ButtonVisualState InitButState;
-    public ButtonVisualState AimButState;
-    public ButtonVisualState FinalButState;
+    public ButtonVisuals InitButState;
+    public ButtonVisuals AimButState;
+    public ButtonVisuals FinalButState;
     public AimTargetVisual AimTarget;
 
 
@@ -110,7 +110,7 @@ public class AimTargetVisual{
 
 }
 
-public class ButtonVisualState{
+public class ButtonVisuals{
     public Color Color;
     public string Text;
 }
@@ -118,6 +118,7 @@ public class ButtonVisualState{
 
 [Serializable]
 public class SoundSettings{
+    public AudioSource _source;
     public AudioClip _clickSound;
     public AudioClip _arrowFlySound;
     public AudioClip _arrowHitSound;
