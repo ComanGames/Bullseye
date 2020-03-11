@@ -1,41 +1,118 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using UnityEngine;
+using UnityEngine.Assertions.Must;
 using Sounds = AudioManger.Sounds;
+using Vector2 = System.Numerics.Vector2;
 
 public class GameManager : MonoBehaviour{
 
     //Mono Refs 
-    [SerializeField] private InputButton _mainButton;
-    [SerializeField] private AimIndicator _aimIndicatr;
 
 
-    [SerializeField]
-    private GameSettings _settings;
+    [SerializeField] private GameSettings _settings;
     private GameState _gameState;
-    private AimingLogic _aimingLogic;
+    private VisualSettings _visuals;
     private AudioManger _audio;
 
 
     public void Start(){
         _settings.Init();
         AudioSubscriptions();
-        _aimingLogic = new AimingLogic(_settings.aim,Time.time);
         StartCoroutine(LifeCycle());
         
     }
 
     private void AudioSubscriptions(){
-        _mainButton.OnPushed += () => _audio.PlaySound(Sounds.Click);
+        _visuals = _settings.visual;
+        _visuals.MainButton.OnPushed += () => _audio.PlaySound(Sounds.Click);
+        _visuals.AimTarget.OnShooted += () => _audio.PlaySound(Sounds.Fly);
+        _visuals.AimTarget.OnHit += () => _audio.PlaySound(Sounds.Bang);
     }
 
+    
+
     public IEnumerator LifeCycle(){
-        IPushable pushable = _mainButton;
+        IPushable button =_visuals.MainButton;
 
         while (true){
 
-            yield return new WaitForPushable(pushable);
+
+            //Start
+            yield return new WaitForPushable(button);
             GoToNextState();
+
+            //Aiming
+            var time = Time.time;
+            var logic = new AimLogic(_settings.aim, Time.time);
+            yield return StartCoroutine(AimPhase(button, logic));
+            time = Time.time;
+            GoToNextState();
+
+            //Anim
+            yield return StartCoroutine(AnimPhase(logic,time));
+            
+            //Score
+            yield return StartCoroutine(ShowScorePhase(logic,time,button));
+
+            //Reset 
+            Reset(); 
+            yield return null;
+
+            GoToNextState();
+
         }
+    }
+
+    private IEnumerator ShowScorePhase(AimLogic logic, float time, IPushable button){
+
+        _visuals.Camera.GoToScorePoint();
+        AimState state= logic.GetCurrentAimState(time);
+         _visuals.Scores.ShowScore(state.Score);
+         _visuals.MainButton.enabled = true;
+        yield return new WaitForPushable(button);
+    }
+
+
+    private void Reset(){
+
+        _visuals.Indicator.enabled = false;
+        _visuals.MainButton.enabled = true;
+
+        _visuals.AimTarget.Reset();
+        _visuals.Indicator.Reset();
+        _visuals.Scores.Reset();
+        _visuals.Camera.Reset();
+    }
+
+    private IEnumerator AnimPhase(AimLogic logic,float time){
+
+        _visuals.Indicator.enabled = false;
+        _visuals.MainButton.enabled = false;
+
+        Vector3 init = logic.GetHitPoint(time);
+
+        Vector3 relative = _visuals.AimTarget.RelativePoint(init);
+        Func<float, Vector3> trajectory = logic.Trajectory(relative);
+
+        _visuals.Camera.StartFollowing(_visuals.AimTarget.Arrow);
+
+        var flyPhase = _visuals.AimTarget.ArrowFly(Time.time,trajectory);
+        yield return StartCoroutine(flyPhase);
+    }
+
+
+    private IEnumerator AimPhase(IPushable pushable, AimLogic aimLogic){
+
+        _visuals.Indicator.enabled = true;
+        while (!pushable.IsPushed()){
+            AimState state = aimLogic.GetCurrentAimState(Time.time);
+            _visuals.Indicator.UpdateState(state);
+            yield return null;
+        }
+
+        pushable.IsPushed();
+        yield return null;
     }
 
     private void GoToNextState(){
@@ -49,12 +126,11 @@ public class GameManager : MonoBehaviour{
     }
 
     private void ChangeState(GameState state){
-
-        _mainButton.ChangeState(_settings.visual.AimButState);
-        
-
+        var visual = _visuals;
+        _visuals.MainButton.ChangeState(visual.AimButState);
     }
 }
+
 
 
 public class AudioManger{

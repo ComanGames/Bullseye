@@ -1,25 +1,36 @@
 ﻿using System;
 using UnityEngine;
+using UnityEngine.Serialization;
 
-internal class AimIndicator : MonoBehaviour{
+public class AimIndicator : MonoBehaviour{
+
 
     public Transform MovablePart;
     public Material ColorMat;
     public float MovingRange;
 
-    [Range(0,.5f)]
-    public float ColorFloatSpeed=.1f;
+    public float ColorF=.1f;
     
 
 
     private Vector3 _center;
+    private Color _currentColor;
 
     public void Start(){
         _center = MovablePart.position;
+        _currentColor = ColorMat.color;
     }
-
 
     public void UpdateState(AimState state){
 
+        MovablePart.position = _center + (Vector3.left * state.Point);
+
+         _currentColor = Color.Lerp(_currentColor, state.Color, ColorF);
+        ColorMat.color = _currentColor;
+
+    }
+
+    public void Reset(){
+        throw new NotImplementedException();
     }
 }

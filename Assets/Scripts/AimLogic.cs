@@ -1,19 +1,18 @@
 ﻿using System;
-using System.Linq;
 using UnityEngine;
 using static AimingSettings;
 using Color = UnityEngine.Color;
 using Random = UnityEngine.Random;
 using Vector2 = System.Numerics.Vector2;
 
-public class AimingLogic{
+public class AimLogic{
 
     private readonly AimingSettings _settings;
 
     private float _startTime;
     private AimZone[] _zones;
 
-    public AimingLogic(AimingSettings settings,float time){
+    public AimLogic(AimingSettings settings,float time){
         _settings = settings;
         _zones = _settings.Zones;
        _startTime = time;
@@ -21,9 +20,9 @@ public class AimingLogic{
 
 
 
-    public Vector2 GetHitPoint(float time){
+    public Vector3 GetHitPoint(float time){
         //We look first for the zone index 
-        AimState state = GetCurrentIimState(time);
+        AimState state = GetCurrentAimState(time);
         int i = state.ZoneIndex;
 
         float radius = Random.Range(_zones[i].MinDist, _zones[i + 1].MaxDist);
@@ -32,11 +31,11 @@ public class AimingLogic{
         float x = Mathf.Sin(angle) * radius;
         float y = Mathf.Sin(angle) * radius;
 
-        return new Vector2(x,y);
+        return new Vector3(x,y,0);
 
     }
 
-    public AimState GetCurrentIimState(float time){
+    public AimState GetCurrentAimState(float time){
 
         float chances = GetAimPercentage(time);
         float chanceEval = _settings.InidictorCurve.Evaluate(Math.Abs(chances));
@@ -45,8 +44,9 @@ public class AimingLogic{
                                  //JIC: IndicatorPoint(chances, chanceEval);
 
         Color color = _zones[zoneIndex].Color;
+        var score = _zones[zoneIndex].Score;
 
-        return new AimState(point,color,zoneIndex);
+        return new AimState(point,color,zoneIndex,score);
     }
 
     private static float IndicatorPoint(float chances, float chanceEval){
@@ -83,6 +83,16 @@ public class AimingLogic{
         return chances;
     }
 
+
+
+    /// <summary>
+    /// Give us trajectory from point 0,0,0 to dist 
+    /// </summary>
+    public Func<float, Vector3> Trajectory(Vector3 dist){
+
+        return (x) => Vector3.Lerp(Vector3.zero, dist, x);
+
+    }
 }
 
 public class AimState{
@@ -98,10 +108,12 @@ public class AimState{
     ///  Color representing current aiming state
     /// </summary>
     public readonly int ZoneIndex;
-
-    public AimState(float point, Color color,int index){
+    public readonly int Score;
+    public AimState(float point, Color color, int zoneIndex, int score){
         Point = point;
-       Color = color;
-       ZoneIndex = index;
+        Color = color;
+        ZoneIndex = zoneIndex;
+        Score = score;
     }
+
 }

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 [Serializable]
 public class GameSettings{
@@ -92,18 +93,13 @@ public class VisualSettings{
     public ButtonVisuals InitButState;
     public ButtonVisuals AimButState;
     public ButtonVisuals FinalButState;
-    public AimTargetVisual AimTarget;
- }
+    
+    public AimTargetorArrow AimTarget;
+    public InputButton MainButton;
+    public AimIndicator Indicator;
+    public ScorePanel Scores;
 
-public class AimTargetVisual{
-
-    public Transform VisualSerfaceAngle;
-    public Transform VisualSurfaceCenter;
-    public Transform VisualSurfaceEnding;
-   public float Radius{
-        get { return Vector3.Distance(VisualSurfaceCenter.position, VisualSurfaceEnding.position); }
-    }
-
+    public CameraVis Camera;
 }
 
 public class ButtonVisuals{
