@@ -1,0 +1,16 @@
+﻿using System;
+
+namespace Settings{
+    [Serializable]
+    public class GameSettings{
+        public float TimeOut;
+        public AimingSettings aim;
+        public VisualSettings visual;
+        public SoundSettings audio;
+
+        public void Init(){
+            aim.Init(visual.AimTarget.Radius); 
+        }
+
+    }
+}
