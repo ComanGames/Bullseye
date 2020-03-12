@@ -35,7 +35,7 @@ namespace Visuals{
             Show();
             StringBuilder sb = new StringBuilder();
             sb.AppendLine("YOU");
-            sb.AppendLine("MISSED");
+            sb.AppendLine("MISS");
             Text.text = sb.ToString();
             yield return new WaitForSeconds(ButtonTimeout);
             Hide();

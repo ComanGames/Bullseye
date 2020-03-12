@@ -42,7 +42,7 @@ namespace Logic{
             var point = IndicatorPoint(chances,chanceEval); //should be from 1to0 from0 to -1/
             //JIC: IndicatorPoint(chances, chanceEval);
 
-            bool missed = zoneIndex == _zones.Length - 1;
+            bool missed = _zones[zoneIndex].Score<=1;
             Color color = _zones[zoneIndex].Color;
             var score = _zones[zoneIndex].Score;
 
