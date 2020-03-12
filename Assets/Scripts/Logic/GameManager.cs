@@ -14,9 +14,9 @@ namespace Logic{
 
         public void Start(){
             _settings.Init();
+            _settings.visual.AimTarget.OnHit += _settings.visual.Camera.ShakeCamera;
             AudioSubscriptions();
             StartCoroutine(LifeCycle());
-        
         }
 
         private void AudioSubscriptions(){

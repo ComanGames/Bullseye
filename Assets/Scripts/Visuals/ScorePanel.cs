@@ -7,12 +7,15 @@ namespace Visuals{
     public class ScorePanel : MonoBehaviour{
 
         public TextMeshPro Text;
+        public Color HitColor;
+        public Color MissColor;
         public float ScoreTimeot = .3f;
         public float ButtonTimeout = .3f;
 
 
         public IEnumerator ShowScore(int number){
             Show();
+            Text.color = HitColor;
             StringBuilder sb = new StringBuilder();
             sb.AppendLine("Your Score");
             sb.AppendLine(number.ToString());
@@ -33,6 +36,7 @@ namespace Visuals{
 
         public IEnumerator YouMissed(){
             Show();
+            Text.color = MissColor;
             StringBuilder sb = new StringBuilder();
             sb.AppendLine("YOU");
             sb.AppendLine("MISS");

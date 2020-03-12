@@ -60,6 +60,7 @@ namespace Visuals{
                 yield return null;
             }
 
+            
             if (OnHit != null) 
                 OnHit.Invoke();
 
