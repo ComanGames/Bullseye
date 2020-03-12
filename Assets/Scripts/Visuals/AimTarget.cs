@@ -3,15 +3,27 @@ using System.Collections;
 using UnityEngine;
 
 namespace Visuals{
-    public class AimTargetorArrow:MonoBehaviour{
+    public class AimTarget:MonoBehaviour{
         [Header("Params")] 
         public float FlyTimeout;
         public float HitDelay=0.2f;
-        public float Radius;
+
+        public float Radius{
+            get {
+                var start = Surface.position;
+                var end = Border.position;
+
+                float distance = Vector3.Distance(start, end);
+
+                return distance;
+            }
+        } 
 
         [Header("Refs")]
         public Transform Arrow;
         public Transform Surface;
+        public Transform Border;
+        public GameObject Bow;
 
         public event Action OnShooted;
         public event Action OnHit;
@@ -19,7 +31,7 @@ namespace Visuals{
         private Vector3 _arrowInitPos;
         private Quaternion _arrowInitRot;
 
-        private void Awake(){
+        private void Awake() {
             _arrowInitPos = Arrow.position;
             _arrowInitRot = Arrow.rotation;
         }
@@ -35,6 +47,7 @@ namespace Visuals{
 
             if (OnShooted != null) 
                 OnShooted.Invoke();
+            HideBow();
 
             while (f<1f){
 
@@ -51,6 +64,7 @@ namespace Visuals{
                 OnHit.Invoke();
 
             yield return new WaitForSeconds(HitDelay);
+            ShowBow();
 
 
         }
@@ -59,5 +73,15 @@ namespace Visuals{
             return ((init) + Surface.position);
 
         }
+
+        public void HideBow(){
+
+            Bow.SetActive(false);
+        }
+        public void ShowBow(){
+
+            Bow.SetActive(true);
+        }
     }
+
 }

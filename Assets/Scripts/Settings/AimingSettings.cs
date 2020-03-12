@@ -11,7 +11,10 @@ namespace Settings{
         public float Radius;
 
         public float ZoneSize{
-            get { return Radius / Zones.Length; }
+            get {
+                var size = Radius / (float)(Zones.Length-1);
+                return size;
+            }
         }
 
         public void Init(float radius){

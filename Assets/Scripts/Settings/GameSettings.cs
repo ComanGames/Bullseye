@@ -8,7 +8,8 @@ namespace Settings{
         public SoundSettings audio;
 
         public void Init(){
-            aim.Init(visual.AimTarget.Radius); 
+            aim.Init(visual.AimTarget.Radius);
+            visual.Init();
         }
 
     }

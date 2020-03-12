@@ -44,6 +44,7 @@ namespace Logic{
                 var logic = new AimLogic(_settings.aim, Time.time);
 
                 yield return StartCoroutine(AimPhase(button, logic));
+
                 var state = logic.GetCurrentAimState(Time.time);
                 var trajectory = GetTrajectory(logic, state.ZoneIndex);
 
@@ -51,6 +52,7 @@ namespace Logic{
 
                 //Anim
                 yield return StartCoroutine(AnimPhase(trajectory));
+                GoToNextState();
             
                 //Score
                 yield return StartCoroutine(ShowScorePhase(state));
@@ -105,6 +107,7 @@ namespace Logic{
 
             _visuals.Camera.StartFollowing(_visuals.AimTarget.Arrow);
 
+            _visuals.AimTarget.HideBow();
             var flyPhase = _visuals.AimTarget.ArrowFly(Time.time,t);
             yield return StartCoroutine(flyPhase);
         }

@@ -10,11 +10,15 @@ namespace Settings{
         public ButtonVisuals AimButState;
         public ButtonVisuals FinalButState;
     
-        public AimTargetorArrow AimTarget;
+        public AimTarget AimTarget;
         public InputButton MainButton;
         public AimIndicator Indicator;
         public ScorePanel Scores;
 
         public CameraVis Camera;
+
+        public void Init(){
+            MainButton.ChangeState(InitButState);
+        }
     }
 }

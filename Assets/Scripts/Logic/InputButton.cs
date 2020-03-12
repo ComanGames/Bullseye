@@ -52,5 +52,9 @@ namespace Logic{
             _colorMat.color = state.Color;
 
         }
+
+        public static void Init(){
+
+        }
     }
 }
