@@ -1,4 +1,5 @@
-#Bulls Eye Game
+# Bulls Eye Game
 
-![](https://raw.githubusercontent.com/ComanGames/Bullseye/blob/master/Resources/Shooting.gif?raw=true)
+![](https://raw.githubusercontent.com/ComanGames/Bullseye/master/Resources/Shooting.gif)
+
 
