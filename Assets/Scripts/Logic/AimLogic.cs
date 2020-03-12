@@ -19,16 +19,16 @@ namespace Logic{
 
 
 
-        public Vector3 GetHitPoint(float time){
+        public Vector3 GetHitPoint(int zoneIndex ){
             //We look first for the zone index 
-            AimState state = GetCurrentAimState(time);
-            int i = state.ZoneIndex;
 
-            float radius = Random.Range(_zones[i].MinDist, _zones[i + 1].MaxDist);
+            int i = zoneIndex;
+
+            float radius = (i * _settings.ZoneSize)+Random.Range(0,_settings.ZoneSize);
             float angle = Random.Range(0, Mathf.PI * 2f);
 
             float x = Mathf.Sin(angle) * radius;
-            float y = Mathf.Sin(angle) * radius;
+            float y = Mathf.Cos(angle) * radius;
 
             return new Vector3(x,y,0);
 
@@ -42,10 +42,11 @@ namespace Logic{
             var point = IndicatorPoint(chances,chanceEval); //should be from 1to0 from0 to -1/
             //JIC: IndicatorPoint(chances, chanceEval);
 
+            bool missed = zoneIndex == _zones.Length - 1;
             Color color = _zones[zoneIndex].Color;
             var score = _zones[zoneIndex].Score;
 
-            return new AimState(point,color,zoneIndex,score);
+            return new AimState(point,color,zoneIndex,score,missed);
         }
 
         private static float IndicatorPoint(float chances, float chanceEval){
@@ -85,11 +86,17 @@ namespace Logic{
         /// <summary>
         /// Give us trajectory from point 0,0,0 to dist 
         /// </summary>
-        public Func<float, Vector3> Trajectory(Vector3 dist){
+        public Func<float, Vector3> Trajectory(Vector3 start, Vector3 dist){
 
-            return (x) => Vector3.Lerp(Vector3.zero, dist, x);
-
+            return (x) => Vector3.Lerp(start, dist, x);
+            
         }
+
+    }
+
+    public class AimInfo{
+        public AimState state;
+
     }
 
     public class AimState{
@@ -106,7 +113,8 @@ namespace Logic{
         /// </summary>
         public readonly int ZoneIndex;
         public readonly int Score;
-        public AimState(float point, Color color, int zoneIndex, int score){
+        public readonly bool missed;
+        public AimState(float point, Color color, int zoneIndex, int score,bool missed){
             Point = point;
             Color = color;
             ZoneIndex = zoneIndex;

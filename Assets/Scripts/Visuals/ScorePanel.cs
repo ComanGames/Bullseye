@@ -15,8 +15,6 @@ namespace Visuals{
             Show();
             StringBuilder sb = new StringBuilder();
             sb.AppendLine("Your Score");
-            Text.text = sb.ToString();
-//            yield return new WaitForSeconds(ScoreTimeot);
             sb.AppendLine(number.ToString());
             Text.text = sb.ToString();
             yield return new WaitForSeconds(ButtonTimeout);
@@ -31,6 +29,17 @@ namespace Visuals{
         }
         public void Reset(){
             Text.text = "";
+        }
+
+        public IEnumerator YouMissed(){
+            Show();
+            StringBuilder sb = new StringBuilder();
+            sb.AppendLine("YOU");
+            sb.AppendLine("MISSED");
+            Text.text = sb.ToString();
+            yield return new WaitForSeconds(ButtonTimeout);
+            Hide();
+
         }
     }
 }

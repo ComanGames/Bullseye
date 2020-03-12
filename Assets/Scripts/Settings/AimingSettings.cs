@@ -8,18 +8,22 @@ namespace Settings{
         public AimZone[] Zones;
         public float HalfTime;
         public AnimationCurve InidictorCurve;
+        public float Radius;
+
+        public float ZoneSize{
+            get { return Radius / Zones.Length; }
+        }
 
         public void Init(float radius){
-            //This one Could also be done by for.
-            //But my slogan is "shorter is better";
 
+            Radius = radius;
             float prevDist = 0;
 
             float totalChance = Zones.Select(x => x.Chance).Sum();
 
             foreach (var zone in Zones){
                 zone.Init(totalChance,prevDist);
-                prevDist += radius*zone.Chance;
+                prevDist += ZoneSize;
             } 
         }
     }

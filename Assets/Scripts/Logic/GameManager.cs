@@ -41,17 +41,19 @@ namespace Logic{
                 GoToNextState();
 
                 //Aiming
-                var time = Time.time;
                 var logic = new AimLogic(_settings.aim, Time.time);
+
                 yield return StartCoroutine(AimPhase(button, logic));
-                time = Time.time;
+                var state = logic.GetCurrentAimState(Time.time);
+                var trajectory = GetTrajectory(logic, state.ZoneIndex);
+
                 GoToNextState();
 
                 //Anim
-                yield return StartCoroutine(AnimPhase(logic,time));
+                yield return StartCoroutine(AnimPhase(trajectory));
             
                 //Score
-                yield return StartCoroutine(ShowScorePhase(logic,time));
+                yield return StartCoroutine(ShowScorePhase(state));
 
                 //Reset 
                 Reset(); 
@@ -62,11 +64,27 @@ namespace Logic{
             }
         }
 
-        private IEnumerator ShowScorePhase(AimLogic logic, float time){
+        
+        private Func<float, Vector3> GetTrajectory(AimLogic logic,int index){
+            Vector3 init = logic.GetHitPoint(index);
+            Vector3 start = _visuals.AimTarget.Arrow.position;
+            Vector3 end = _visuals.AimTarget.RelativePoint(init);
+            Func<float, Vector3> trajectory = logic.Trajectory(start,end);
+            return trajectory;
+        }
+
+
+        private IEnumerator ShowScorePhase(AimState state ){
 
             _visuals.Camera.GoToScorePoint();
-            AimState state= logic.GetCurrentAimState(time);
-            yield return StartCoroutine(_visuals.Scores.ShowScore(state.Score));
+
+            if(!state.missed)
+                yield return StartCoroutine(_visuals.Scores.ShowScore(state.Score));
+            else{
+                yield return StartCoroutine(_visuals.Scores.YouMissed());
+                _settings.visual.AimTarget.Reset();
+            }
+
             _visuals.MainButton.enabled = true;
         }
 
@@ -82,24 +100,16 @@ namespace Logic{
             _visuals.Camera.Reset();
         }
 
-        private IEnumerator AnimPhase(AimLogic logic,float time){
-
-            _visuals.Indicator.enabled = false;
-            _visuals.MainButton.enabled = false;
-
-            Vector3 init = logic.GetHitPoint(time);
-
-            Vector3 relative = _visuals.AimTarget.RelativePoint(init);
-            Func<float, Vector3> trajectory = logic.Trajectory(relative);
+        private IEnumerator AnimPhase(Func<float,Vector3> t){
 
             _visuals.Camera.StartFollowing(_visuals.AimTarget.Arrow);
 
-            var flyPhase = _visuals.AimTarget.ArrowFly(Time.time,trajectory);
+            var flyPhase = _visuals.AimTarget.ArrowFly(Time.time,t);
             yield return StartCoroutine(flyPhase);
         }
 
 
-        private IEnumerator AimPhase(IPushable pushable, AimLogic aimLogic){
+        private IEnumerator AimPhase(IPushable pushable, AimLogic aimLogic ){
 
             _visuals.Indicator.enabled = true;
             while (!pushable.IsPushed()){

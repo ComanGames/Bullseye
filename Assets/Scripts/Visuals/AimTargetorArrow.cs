@@ -42,7 +42,7 @@ namespace Visuals{
                 var pos = trajectory(f);
                 var future = trajectory(f + 0.1f);
 
-                Arrow.position = pos+_arrowInitPos;
+                Arrow.position = pos;
 
                 yield return null;
             }
@@ -56,7 +56,7 @@ namespace Visuals{
         }
 
         public Vector3 RelativePoint(Vector3 init){
-            return ((Surface.rotation * init) + Surface.position) - _arrowInitPos;
+            return ((init) + Surface.position);
 
         }
     }
