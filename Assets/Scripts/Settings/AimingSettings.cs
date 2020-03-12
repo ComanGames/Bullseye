@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq;
+using Logic;
 using UnityEngine;
 
 namespace Settings{
@@ -9,6 +10,7 @@ namespace Settings{
         public float HalfTime;
         public AnimationCurve InidictorCurve;
         public float Radius;
+        public NonLinearTrajectory NonLiner;
 
         public float ZoneSize{
             get {

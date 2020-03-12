@@ -1,12 +1,17 @@
 ﻿using System;
 using System.Collections;
+using Logic;
+using UnityEditorInternal;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 namespace Visuals{
     public class AimTarget:MonoBehaviour{
         [Header("Params")] 
         public float FlyTimeout;
         public float HitDelay=0.2f;
+        public NonLinearTrajectory NonLinTra;
+
 
         public float Radius{
             get {
@@ -21,6 +26,8 @@ namespace Visuals{
 
         [Header("Refs")]
         public Transform Arrow;
+
+        public Transform MissZone;
         public Transform Surface;
         public Transform Border;
         public GameObject Bow;
@@ -41,8 +48,13 @@ namespace Visuals{
             Arrow.rotation = _arrowInitRot;
         }
 
+        public void Update(){
+            NonLinTra.DrawPath(Arrow.position,Surface.position);
+
+        }
 
         public IEnumerator ArrowFly(float startTime, Func<float, Vector3> trajectory){
+            bool hitted = false;
             float f = 0;
 
             if (OnShooted != null) 
@@ -53,16 +65,25 @@ namespace Visuals{
 
                 f = (Time.time - startTime) / FlyTimeout;
                 var pos = trajectory(f);
-                var future = trajectory(f + 0.1f);
-
+                var future = trajectory(f + Time.deltaTime);
+                var rel = future - pos;
                 Arrow.position = pos;
+                Arrow.rotation = Quaternion.LookRotation(rel);
+
+
+
+
+
+                //Having hit half second before
+                if (f > 0.95f && OnHit != null && !hitted){
+                    OnHit.Invoke();
+                    hitted = true;
+                }
 
                 yield return null;
             }
 
             
-            if (OnHit != null) 
-                OnHit.Invoke();
 
             yield return new WaitForSeconds(HitDelay);
             ShowBow();
@@ -82,6 +103,14 @@ namespace Visuals{
         public void ShowBow(){
 
             Bow.SetActive(true);
+        }
+
+        public Vector3 RandomMissPoint(){
+            var zone = MissZone.localScale;
+            float x = Random.Range(zone.x * -.5f, zone.x * .5f);
+            float z = Random.Range(zone.z * -.5f, zone.z * .5f);
+            var point = MissZone.position + new Vector3(x,0,z);
+            return point;
         }
     }
 

@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: CameraShaker
   m_EditorClassIdentifier: 
   target: 1
-  amplitude: 15
-  frequency: 10
+  amplitude: 4
+  frequency: 7
   duration: 0.4
   blendOverLifetime:
     serializedVersion: 2

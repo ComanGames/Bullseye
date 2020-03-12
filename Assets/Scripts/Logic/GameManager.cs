@@ -46,7 +46,7 @@ namespace Logic{
                 yield return StartCoroutine(AimPhase(button, logic));
 
                 var state = logic.GetCurrentAimState(Time.time);
-                var trajectory = GetTrajectory(logic, state.ZoneIndex);
+                var trajectory = GetTrajectory(logic, state);
 
                 GoToNextState();
 
@@ -67,11 +67,25 @@ namespace Logic{
         }
 
         
-        private Func<float, Vector3> GetTrajectory(AimLogic logic,int index){
-            Vector3 init = logic.GetHitPoint(index);
-            Vector3 start = _visuals.AimTarget.Arrow.position;
-            Vector3 end = _visuals.AimTarget.RelativePoint(init);
-            Func<float, Vector3> trajectory = logic.Trajectory(start,end);
+        private Func<float, Vector3> GetTrajectory(AimLogic logic,AimState state){
+            Func<float, Vector3> trajectory;
+
+            bool b = !state.Missed;
+
+            if (b){
+                Vector3 init = logic.GetHitPoint(state.ZoneIndex);
+                Vector3 start = _visuals.AimTarget.Arrow.position;
+                Vector3 end = _visuals.AimTarget.RelativePoint(init);
+                trajectory = logic.DirectTraject(start, end);
+            }
+            else{
+
+                Vector3 start = _visuals.AimTarget.Arrow.position;
+                Vector3 end = _visuals.AimTarget.RandomMissPoint();
+                Debug.DrawLine(start,end);
+                trajectory = logic.KinematicTraject(start, end);
+            }
+
             return trajectory;
         }
 
@@ -103,12 +117,12 @@ namespace Logic{
             _visuals.Camera.Reset();
         }
 
-        private IEnumerator AnimPhase(Func<float,Vector3> t){
+        private IEnumerator AnimPhase(Func<float,Vector3> traj){
 
             _visuals.Camera.StartFollowing(_visuals.AimTarget.Arrow);
 
             _visuals.AimTarget.HideBow();
-            var flyPhase = _visuals.AimTarget.ArrowFly(Time.time,t);
+            var flyPhase = _visuals.AimTarget.ArrowFly(Time.time,traj);
             yield return StartCoroutine(flyPhase);
         }
 

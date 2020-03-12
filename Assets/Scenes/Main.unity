@@ -143,8 +143,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 18034938}
-  m_LocalRotation: {x: 0.5, y: -0.5, z: -0.5, w: 0.5}
-  m_LocalPosition: {x: 1.05, y: 1.21, z: -11.46}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 1.05, y: 1.166, z: -11.566}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1913960823}
@@ -194,13 +194,13 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: 9e926a1139b80af4387c46616d47ea9d, type: 3}
   m_PlayOnAwake: 1
-  m_Volume: 0.42
+  m_Volume: 1
   m_Pitch: 1
   Loop: 1
   Mute: 0
   Spatialize: 0
   SpatializePostEffects: 0
-  Priority: 256
+  Priority: 82
   DopplerLevel: 1
   MinDistance: 1
   MaxDistance: 500
@@ -357,7 +357,7 @@ AudioSource:
   Mute: 0
   Spatialize: 0
   SpatializePostEffects: 0
-  Priority: 0
+  Priority: 35
   DopplerLevel: 1
   MinDistance: 1
   MaxDistance: 500
@@ -476,10 +476,10 @@ MonoBehaviour:
       - Chance: 7.5
         Score: 20
         Color: {r: 0.23492157, g: 1, b: 0, a: 1}
-      - Chance: 8.5
+      - Chance: 20
         Score: 0
         Color: {r: 1, g: 1, b: 1, a: 1}
-      HalfTime: 1
+      HalfTime: 1.5
       InidictorCurve:
         serializedVersion: 2
         m_Curve:
@@ -493,8 +493,8 @@ MonoBehaviour:
           inWeight: 0
           outWeight: 0.25057027
         - serializedVersion: 3
-          time: 0.55819726
-          value: 0.6902539
+          time: 0.6922935
+          value: 0.53024393
           inSlope: -1.2881811
           outSlope: -1.2881811
           tangentMode: 0
@@ -514,6 +514,8 @@ MonoBehaviour:
         m_PostInfinity: 0
         m_RotationOrder: 4
       Radius: 0
+      NonLiner:
+        Height: 2
     visual:
       ButtonStateTransitionTime: 0.5
       InitButState:
@@ -1018,7 +1020,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &976077571
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1066,8 +1068,8 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4287606534
-  m_fontColor: {r: 0.023529412, g: 0.6862745, b: 0.56078434, a: 1}
+    rgba: 4288985421
+  m_fontColor: {r: 0.8679245, g: 0.40988278, b: 0.40530434, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -1203,6 +1205,50 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+--- !u!1 &1061168745
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1061168746}
+  - component: {fileID: 1061168747}
+  m_Layer: 0
+  m_Name: MissZone
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1061168746
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1061168745}
+  m_LocalRotation: {x: 0.06975647, y: -0, z: -0, w: 0.9975641}
+  m_LocalPosition: {x: -0.019, y: -0.766, z: 0.274}
+  m_LocalScale: {x: 1.341668, y: 0.30780664, z: 0.77286756}
+  m_Children: []
+  m_Father: {fileID: 955863697547983116}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!65 &1061168747
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1061168745}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 1, z: 1}
 --- !u!1 &1131006110
 GameObject:
   m_ObjectHideFlags: 0
@@ -1231,7 +1277,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 955863697547983116}
-  m_RootOrder: 1
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1485845353
 GameObject:
@@ -1352,13 +1398,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1913960822}
-  m_LocalRotation: {x: 1, y: 0, z: 0, w: 0}
-  m_LocalPosition: {x: 0, y: -0.381, z: 0}
+  m_LocalRotation: {x: -0.7071068, y: 0, z: 0, w: 0.7071068}
+  m_LocalPosition: {x: 0, y: 0, z: -0.32}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 18034939}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 180, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: -90, y: 0, z: 0}
 --- !u!23 &1913960824
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -1481,6 +1527,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Text: {fileID: 976077572}
+  HitColor: {r: 0.30588236, g: 0.7254902, b: 0.64705884, a: 1}
+  MissColor: {r: 0.8666667, g: 0.4117647, b: 0.40392157, a: 1}
   ScoreTimeot: 0.3
   ButtonTimeout: 3
 --- !u!1 &2013851336
@@ -1517,7 +1565,7 @@ MonoBehaviour:
   _settings:
     shutterAngle: 270
     sampleCount: 10
-    frameBlending: 0.201
+    frameBlending: 0.356
   _reconstructionShader: {fileID: 4800000, guid: 7ea8cfee2809541fa81c5ed422ded933,
     type: 3}
   _frameBlendingShader: {fileID: 4800000, guid: 83da3aecb8b462f498946f5198cbd58e,
@@ -1782,7 +1830,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   FlyTimeout: 1.5
   HitDelay: 1.2
+  NonLinTra:
+    Height: 1.5
   Arrow: {fileID: 18034939}
+  MissZone: {fileID: 1061168746}
   Surface: {fileID: 1959814376}
   Border: {fileID: 1131006111}
   Bow: {fileID: 7028503635979345614}

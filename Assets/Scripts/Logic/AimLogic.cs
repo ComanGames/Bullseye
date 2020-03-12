@@ -86,12 +86,23 @@ namespace Logic{
         /// <summary>
         /// Give us trajectory from point 0,0,0 to dist 
         /// </summary>
-        public Func<float, Vector3> Trajectory(Vector3 start, Vector3 dist){
+        public Func<float, Vector3> DirectTraject(Vector3 start, Vector3 dist){
 
             return (x) => Vector3.Lerp(start, dist, x);
             
         }
+        /// <summary>
+        /// Give us trajectory from point 0,0,0 to dist 
+        /// </summary>
+        public Func<float, Vector3> KinematicTraject(Vector3 start, Vector3 dist){
 
+            return _settings.NonLiner.GetFunc(start,dist);
+            
+        }
+
+        public Vector3 GetMissPoint(){
+            throw new NotImplementedException();
+        }
     }
 
     public class AimInfo{
@@ -113,12 +124,13 @@ namespace Logic{
         /// </summary>
         public readonly int ZoneIndex;
         public readonly int Score;
-        public readonly bool missed;
+        public readonly bool Missed;
         public AimState(float point, Color color, int zoneIndex, int score,bool missed){
             Point = point;
             Color = color;
             ZoneIndex = zoneIndex;
             Score = score;
+            Missed = missed;
         }
 
     }
