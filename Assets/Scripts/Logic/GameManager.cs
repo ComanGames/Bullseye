@@ -95,13 +95,10 @@ namespace Logic{
 
             _visuals.Camera.GoToScorePoint();
 
-            if (state.Score>1){
+            if (state.Score>1)
                 yield return StartCoroutine(_visuals.Scores.ShowScore(state.Score));
-            }
-            else{
-                _settings.visual.AimTarget.Reset();
+            else
                 yield return StartCoroutine(_visuals.Scores.YouMissed());
-            }
 
             _visuals.MainButton.enabled = true;
         }

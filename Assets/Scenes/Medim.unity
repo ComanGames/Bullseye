@@ -468,24 +468,30 @@ MonoBehaviour:
     aim:
       Zones:
       - Chance: 1
-        Score: 500
-        Color: {r: 1, g: 0, b: 0, a: 1}
+        Score: 100
+        Color: {r: 0.8396226, g: 0.1782218, b: 0.1782218, a: 1}
+      - Chance: 1
+        Score: 20
+        Color: {r: 0.8773585, g: 0.81916004, b: 0.2027857, a: 1}
       - Chance: 1
         Score: 0
-        Color: {r: 1, g: 0.913718, b: 0, a: 1}
-      HalfTime: 0.7
+        Color: {r: 0.87843144, g: 0.8196079, b: 0.20392159, a: 1}
+      - Chance: 3
+        Score: 0
+        Color: {r: 1, g: 1, b: 1, a: 1}
+      HalfTime: 1.5
       InidictorCurve:
         serializedVersion: 2
         m_Curve:
         - serializedVersion: 3
           time: 0
           value: 0
-          inSlope: 2
-          outSlope: 2
+          inSlope: 2.9646785
+          outSlope: 2.9646785
           tangentMode: 0
           weightedMode: 0
           inWeight: 0
-          outWeight: 0
+          outWeight: 0.034375
         - serializedVersion: 3
           time: 1
           value: 1
@@ -887,7 +893,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c6b47e0efb1a4d5dbb9d312c5bcd0347, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  FollowSmooth: 0.2
+  FollowSmooth: 0.1
   ShakeData: {fileID: 11400000, guid: 0bfbd0bfdbf545344bed30e4fd3a60b8, type: 2}
   Shaker: {fileID: 2013851340}
   Blur: {fileID: 2013851337}
@@ -1123,11 +1129,11 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1061168745}
   m_LocalRotation: {x: 0.06975647, y: -0, z: -0, w: 0.9975641}
-  m_LocalPosition: {x: 0.176, y: 0.573, z: -0.619}
-  m_LocalScale: {x: 1.341668, y: 0.6, z: 0.2}
+  m_LocalPosition: {x: 0.12552595, y: 0.78507066, z: 0.08794422}
+  m_LocalScale: {x: 0.95689976, y: 0.98114103, z: 0.1426433}
   m_Children: []
   m_Father: {fileID: 955863697547983116}
-  m_RootOrder: 1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!65 &1061168747
 BoxCollider:
@@ -1166,7 +1172,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1131006110}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.218, y: 0, z: 0.1}
+  m_LocalPosition: {x: 0.65, y: 0, z: 0.1}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 955863697547983116}
@@ -1372,7 +1378,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 955863697547983116}
-  m_RootOrder: 0
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1988894206
 GameObject:
@@ -2129,17 +2135,17 @@ PrefabInstance:
     - target: {fileID: 5358257305832685450, guid: 3f9f9b9afc9d6704593163812fca1e70,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -0.42
+      value: -0.315
       objectReference: {fileID: 0}
     - target: {fileID: 5358257305832685450, guid: 3f9f9b9afc9d6704593163812fca1e70,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 1.217
+      value: 1.76
       objectReference: {fileID: 0}
     - target: {fileID: 5358257305832685450, guid: 3f9f9b9afc9d6704593163812fca1e70,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: -3.884
+      value: -4.3115
       objectReference: {fileID: 0}
     - target: {fileID: 5358257305832685450, guid: 3f9f9b9afc9d6704593163812fca1e70,
         type: 3}
@@ -2184,17 +2190,17 @@ PrefabInstance:
     - target: {fileID: 5358257305832685450, guid: 3f9f9b9afc9d6704593163812fca1e70,
         type: 3}
       propertyPath: m_LocalScale.x
-      value: 1
+      value: 1.4021
       objectReference: {fileID: 0}
     - target: {fileID: 5358257305832685450, guid: 3f9f9b9afc9d6704593163812fca1e70,
         type: 3}
       propertyPath: m_LocalScale.y
-      value: 1
+      value: 1.4021
       objectReference: {fileID: 0}
     - target: {fileID: 5358257305832685450, guid: 3f9f9b9afc9d6704593163812fca1e70,
         type: 3}
       propertyPath: m_LocalScale.z
-      value: 1
+      value: 1.4021
       objectReference: {fileID: 0}
     - target: {fileID: 6531619399294312299, guid: 3f9f9b9afc9d6704593163812fca1e70,
         type: 3}

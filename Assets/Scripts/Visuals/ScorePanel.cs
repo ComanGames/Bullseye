@@ -17,7 +17,7 @@ namespace Visuals{
             Show();
             Text.color = HitColor;
             StringBuilder sb = new StringBuilder();
-            sb.AppendLine("Your Score");
+            sb.AppendLine("Score");
             sb.AppendLine(number.ToString());
             Text.text = sb.ToString();
             yield return new WaitForSeconds(ButtonTimeout);
