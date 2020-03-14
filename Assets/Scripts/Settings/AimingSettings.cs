@@ -27,7 +27,7 @@ namespace Settings{
             float totalChance = Zones.Select(x => x.Chance).Sum();
 
             foreach (var zone in Zones){
-                zone.Init(totalChance,prevDist);
+                zone.Init(totalChance);
                 prevDist += ZoneSize;
             } 
         }

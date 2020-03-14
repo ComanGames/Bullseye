@@ -22,7 +22,7 @@ namespace Settings{
                 }
             }
 
-            public void Init(float totalChance, float prevDistance){
+            public void Init(float totalChance){
                 _wasInit = true;
                 if(totalChance<=0f)
                     throw new ArgumentException("Total chances could not be less then 0");

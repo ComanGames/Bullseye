@@ -70,13 +70,14 @@ namespace Logic{
         private Func<float, Vector3> GetTrajectory(AimLogic logic,AimState state){
             Func<float, Vector3> trajectory;
 
-            bool b = !state.Missed;
+            bool hitted = !state.Missed;
 
-            if (b){
+            if (hitted){
                 Vector3 init = logic.GetHitPoint(state.ZoneIndex);
                 Vector3 start = _visuals.AimTarget.Arrow.position;
                 Vector3 end = _visuals.AimTarget.RelativePoint(init);
-                trajectory = logic.DirectTraject(start, end);
+                trajectory = logic.KinematicTraject(start, end);
+//                trajectory = logic.DirectTraject(start, end);
             }
             else{
 

@@ -34,32 +34,25 @@ namespace Logic{
 
         }
 
-        public AimState GetCurrentAimState(float time){
+        public AimState GetCurrentAimState(float time)
+        {
 
-            float chances = GetAimPercentage(time);
-            float chanceEval = _settings.InidictorCurve.Evaluate(Math.Abs(chances));
+            int cycles;
+            float chances = GetAimPercentage(time,out cycles);
+            float point = _settings.InidictorCurve.Evaluate(chances);
             int zoneIndex = GetCurrentZoneIndex(chances);
-            var point = IndicatorPoint(chances,chanceEval); //should be from 1to0 from0 to -1/
-            //JIC: IndicatorPoint(chances, chanceEval);
+
 
             bool missed = _zones[zoneIndex].Score<=1;
             Color color = _zones[zoneIndex].Color;
             var score = _zones[zoneIndex].Score;
 
-            return new AimState(point,color,zoneIndex,score,missed);
+            return new AimState(point,color,zoneIndex,score,missed,cycles);
         }
 
-        private static float IndicatorPoint(float chances, float chanceEval){
-            return (chanceEval*2) -2f;
-        }
 
         private int GetCurrentZoneIndex(float chance){
             float totalChance = 0;
-            if(chance<1)
-                chance = 1 - chance;
-            else
-                chance =  (chance-1);
-
             for (int i = 0; i < _zones.Length-1; i++){
                 totalChance += _zones[i].PercentageChance;
                 if (chance <= totalChance)
@@ -73,12 +66,16 @@ namespace Logic{
         /// <summary>
         ///  Returns values from 0 to 1 if first half and from -1 to 0 if second half  
         /// </summary>
-        private float GetAimPercentage(float time){
-            float chances;
-            float hTime = _settings.HalfTime;
-            float relativeTime = (time-_startTime) % (hTime * 2);
+        private float GetAimPercentage(float time, out int cycles)
+        {
+            var hTime = _settings.HalfTime;
+            var fullCycle = hTime * 2;
+            var rTime = time - _startTime;
+            var relativeTime = rTime % fullCycle;
+             cycles = (int) (rTime / fullCycle);
 
-            return relativeTime/hTime;
+             float f = relativeTime / hTime;
+             return f<1?f:(2-f);
         }
 
 
@@ -125,12 +122,16 @@ namespace Logic{
         public readonly int ZoneIndex;
         public readonly int Score;
         public readonly bool Missed;
-        public AimState(float point, Color color, int zoneIndex, int score,bool missed){
+        public readonly int Cycles;
+
+        public AimState(float point, Color color, int zoneIndex, int score,bool missed,int cycle){
             Point = point;
             Color = color;
             ZoneIndex = zoneIndex;
             Score = score;
             Missed = missed;
+            Cycles = cycle;
+
         }
 
     }
